@@ -37,7 +37,7 @@ class DatabaseManager {
             e.printStackTrace()
         }
     }
-    public fun disconnect() {
+    fun disconnect() {
         try {
             connection?.close()
         } catch (e: SQLException) {
@@ -55,7 +55,7 @@ class DatabaseManager {
         }
     }
 
-    public fun getActiveSlots(player: Player): Int {
+    fun getActiveSlots(player: Player): Int {
         addActiveSlot(player,0)
         var activeSlots = 0
         val query = "SELECT activeSlots FROM players_info WHERE player_uuid = '${player.uniqueId}'"
@@ -74,7 +74,7 @@ class DatabaseManager {
         return activeSlots
     }
 
-    public fun getBoughtTimes(player: Player): Int {
+    fun getBoughtTimes(player: Player): Int {
         addBoughtTimes(player,0)
         var boughtTimes = 0
         val query = "SELECT boughtTimes FROM players_info WHERE player_uuid = '${player.uniqueId}'"
@@ -95,7 +95,7 @@ class DatabaseManager {
         return boughtTimes
     }
 
-    public fun getBalance(player: Player): Int {
+    fun getBalance(player: Player): Int {
         addBalance(player,0)
         var balance = 0
         val query = "SELECT balance FROM players_info WHERE player_uuid = '${player.uniqueId}'"
@@ -116,7 +116,7 @@ class DatabaseManager {
         return balance
     }
 
-    public fun addActiveSlot(player: Player, amount: Int = 1): Boolean {
+    fun addActiveSlot(player: Player, amount: Int = 1): Boolean {
         if (amount < 0) return false
 
         val query = "INSERT INTO players_info (player_uuid, activeSlots, boughtTimes, balance) " +
@@ -133,7 +133,7 @@ class DatabaseManager {
         }
     }
 
-    public fun addBoughtTimes(player: Player, amount: Int = 1): Boolean {
+    fun addBoughtTimes(player: Player, amount: Int = 1): Boolean {
         if (amount < 0) return false
 
         val query = "INSERT INTO players_info (player_uuid, activeSlots, boughtTimes, balance) " +
@@ -151,7 +151,7 @@ class DatabaseManager {
         }
     }
 
-    public fun addBalance(player: Player, amount: Int): Boolean {
+    fun addBalance(player: Player, amount: Int): Boolean {
         if (amount < 0) return false
 
         val query = "INSERT INTO players_info (player_uuid, activeSlots, boughtTimes, balance) " +
@@ -169,7 +169,7 @@ class DatabaseManager {
         }
     }
 
-    public fun revokeActiveSlots(player: Player, amount: Int = 1) {
+    fun revokeActiveSlots(player: Player, amount: Int = 1) {
         val query = "INSERT INTO players_info (player_uuid, activeSlots, boughtTimes, balance) " +
                 "VALUES ('${player.uniqueId}', 9, 0, 0) ON CONFLICT(player_uuid) D" +
                 "O UPDATE SET activeSlots = ${if (getActiveSlots(player) - amount < 9) "9" else "activeSlots - $amount"}"
@@ -183,7 +183,7 @@ class DatabaseManager {
         }
     }
 
-    public fun revokeBoughtTimes(player: Player, amount: Int = 1) {
+    fun removeBoughtTimes(player: Player, amount: Int = 1) {
         val query = "INSERT INTO players_info (player_uuid, activeSlots, boughtTimes, balance) " +
                 "VALUES ('${player.uniqueId}', 9, 0, 0) ON CONFLICT(player_uuid) " +
                 "DO UPDATE SET boughtTimes = ${if (getBoughtTimes(player) - amount < 0) "0" else "boughtTimes - $amount"}"
@@ -197,7 +197,7 @@ class DatabaseManager {
         }
     }
 
-    public fun removeBalance(player: Player, amount: Int) {
+    fun removeBalance(player: Player, amount: Int) {
         val query = "INSERT INTO players_info (player_uuid, activeSlots, boughtTimes, balance) " +
                 "VALUES ('${player.uniqueId}', 9, 0, 0) ON CONFLICT(player_uuid) " +
                 "DO UPDATE SET balance = ${if (getBalance(player)-amount < 0) "0" else "balance - $amount"}"
