@@ -7,7 +7,7 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-class addCMD : CommandExecutor {
+class AddCMD : CommandExecutor {
     val databaseManager = P2WInventory.instance!!.databaseManager
     override fun onCommand(sender: CommandSender, p1: Command, p2: String, args: Array<out String>): Boolean {
         sender as Player
