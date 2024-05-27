@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerRespawnEvent
 import org.bukkit.inventory.ItemStack
 
+
 class EventListener : Listener {
     // Block unavailable slots when player respawns
     @EventHandler
