@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack
 
 
 class EventListener : Listener {
+    // Block unavailable slots when player respawns
     @EventHandler
     fun onPlayerRespawn(event: PlayerRespawnEvent) {
         val databaseManager = P2WInventory.instance!!.databaseManager
@@ -23,26 +24,28 @@ class EventListener : Listener {
             }
         }
     }
+    // Don't drop slotblockers®️
     @EventHandler
     fun onPlayerDropItem(event: PlayerDropItemEvent) {
         if (P2WInventory.instance!!.itemIsUnavailable(event.itemDrop.itemStack)) {
             event.isCancelled = true
         }
     }
+    // Can't drop/move/remove slotblockers®️ from your inventory
     @EventHandler
     fun onInventoryClick(event: InventoryClickEvent) {
         if (P2WInventory.instance!!.itemIsUnavailable(event.currentItem!!)) {
             event.isCancelled = true
         }
     }
-
+    // Can't place slotblockers®️ from your inventory
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
         if (P2WInventory.instance!!.itemIsUnavailable(event.item!!)) {
             event.isCancelled = true
         }
     }
-
+    // Don't drop slotblockers®️ on player's death
     @EventHandler
     fun onEntityDamage(event: EntityDamageEvent) {
         if (event.entity !is Player) return
