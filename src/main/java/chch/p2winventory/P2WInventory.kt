@@ -1,16 +1,12 @@
 package chch.p2winventory
 
-import chch.p2winventory.commands.addCMD
-import chch.p2winventory.commands.addCompleter
-import chch.p2winventory.commands.getPlayerInfoCMD
+import chch.p2winventory.commands.*
 import chch.p2winventory.db.DatabaseManager
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.plugin.java.JavaPlugin
-import javax.xml.crypto.Data
 
 class P2WInventory : JavaPlugin() {
     lateinit var databaseManager: DatabaseManager
@@ -27,9 +23,13 @@ class P2WInventory : JavaPlugin() {
 
         dataFolder.mkdirs()
 
-        getCommand("getplayer")?.setExecutor(getPlayerInfoCMD())
-        getCommand("add")?.setExecutor(addCMD())
-        getCommand("add")?.tabCompleter = addCompleter()
+        getCommand("getplayer")?.setExecutor(GetPlayerInfoCMD())
+
+        getCommand("add")?.setExecutor(AddDataCMD())
+        getCommand("add")?.tabCompleter = AddDataCompleter()
+
+        getCommand("remove")?.setExecutor(RemoveDataCMD())
+        getCommand("remove")?.tabCompleter = RemoveDataCompleter()
 
         server.pluginManager.registerEvents(EventListener(), this)
     }
@@ -39,7 +39,7 @@ class P2WInventory : JavaPlugin() {
     }
 
     fun getUnavailableItem(): ItemStack {
-        val slotBanItem = ItemStack(Material.GLASS_PANE)
+        val slotBanItem = ItemStack(Material.GRAY_STAINED_GLASS_PANE)
         val slotBanItemMeta = slotBanItem.itemMeta
         slotBanItemMeta?.setDisplayName("§cUnavailable slot §7(§cP§e2§aW§bI§7)")
         slotBanItemMeta?.persistentDataContainer?.set(unavailableTagKey, PersistentDataType.BOOLEAN, true)

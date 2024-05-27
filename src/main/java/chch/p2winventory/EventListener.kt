@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerRespawnEvent
 import org.bukkit.inventory.ItemStack
 
+
 class EventListener : Listener {
     val databaseManager = P2WInventory.instance!!.databaseManager
     // Block a slot if player dies
