@@ -47,7 +47,10 @@ class P2WInventory : JavaPlugin() {
         return slotBanItem
     }
 
-    fun itemIsUnavailable(item: ItemStack): Boolean {
-        return item.itemMeta!!.persistentDataContainer.get(unavailableTagKey, PersistentDataType.BOOLEAN)!!
+    fun itemIsUnavailable(item: ItemStack?): Boolean {
+        if (item != null) {
+            return item.itemMeta!!.persistentDataContainer.get(unavailableTagKey, PersistentDataType.BOOLEAN)!!
+        }
+        else return false
     }
 }

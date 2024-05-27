@@ -4,6 +4,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
@@ -12,17 +13,18 @@ import org.bukkit.inventory.ItemStack
 
 
 class EventListener : Listener {
+    val databaseManager = P2WInventory.instance!!.databaseManager
     // Block a slot if player dies
     // TODO: CONFIG
     @EventHandler
-    fun onPlayerDeath(event: PlayerDeath) {
-
+    fun onPlayerDeath(event: PlayerDeathEvent) {
+        databaseManager.revokeActiveSlots(event.entity)
+        event.entity.sendMessage("§7[§cP§e2§aW§bI§7] §c》 §f§lYou §kkk§r§l§4lost§kkk§r§l §fan inventory slot.")
     }
 
     // Block unavailable slots when player respawns
     @EventHandler
     fun onPlayerRespawn(event: PlayerRespawnEvent) {
-        val databaseManager = P2WInventory.instance!!.databaseManager
         val player = event.player
         val playerActiveSlots = databaseManager.getActiveSlots(player)
         if (playerActiveSlots > 9) {
@@ -41,14 +43,14 @@ class EventListener : Listener {
     // Can't drop/move/remove slotblockers®️ from your inventory
     @EventHandler
     fun onInventoryClick(event: InventoryClickEvent) {
-        if (P2WInventory.instance!!.itemIsUnavailable(event.currentItem!!)) {
+        if (P2WInventory.instance!!.itemIsUnavailable(event.currentItem)) {
             event.isCancelled = true
         }
     }
     // Can't place slotblockers®️ from your inventory
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
-        if (P2WInventory.instance!!.itemIsUnavailable(event.item!!)) {
+        if (P2WInventory.instance!!.itemIsUnavailable(event.item)) {
             event.isCancelled = true
         }
     }
