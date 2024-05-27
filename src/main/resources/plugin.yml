@@ -1,0 +1,4 @@
+name: P2WInventory
+version: '${project.version}'
+main: chch.p2winventory.P2WInventory
+api-version: '1.20'
