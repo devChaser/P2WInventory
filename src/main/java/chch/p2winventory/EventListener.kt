@@ -12,6 +12,13 @@ import org.bukkit.inventory.ItemStack
 
 
 class EventListener : Listener {
+    // Block a slot if player dies
+    // TODO: CONFIG
+    @EventHandler
+    fun onPlayerDeath(event: PlayerDeath) {
+
+    }
+
     // Block unavailable slots when player respawns
     @EventHandler
     fun onPlayerRespawn(event: PlayerRespawnEvent) {
@@ -46,6 +53,7 @@ class EventListener : Listener {
         }
     }
     // Don't drop slotblockers®️ on player's death
+    // TODO: CHANGE TO PlayerDeathEvent
     @EventHandler
     fun onEntityDamage(event: EntityDamageEvent) {
         if (event.entity !is Player) return
