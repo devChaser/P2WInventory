@@ -9,3 +9,6 @@ commands:
   add:
     usage: /add <player> <type of data> <amount>
     permission: '*'
+  remove:
+    usage: /remove <player> <type of data> <amount>
+    permission: '*'

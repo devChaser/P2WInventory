@@ -169,7 +169,7 @@ class DatabaseManager {
         }
     }
 
-    public fun removeActiveSlots(player: Player, amount: Int = 1) {
+    public fun revokeActiveSlots(player: Player, amount: Int = 1) {
         val query = "INSERT INTO players_info (player_uuid, activeSlots, boughtTimes, balance) " +
                 "VALUES ('${player.uniqueId}', 9, 0, 0) ON CONFLICT(player_uuid) D" +
                 "O UPDATE SET activeSlots = ${if (getActiveSlots(player) - amount < 9) "9" else "activeSlots - $amount"}"
@@ -183,7 +183,7 @@ class DatabaseManager {
         }
     }
 
-    public fun removeBoughtTimes(player: Player, amount: Int = 1) {
+    public fun revokeBoughtTimes(player: Player, amount: Int = 1) {
         val query = "INSERT INTO players_info (player_uuid, activeSlots, boughtTimes, balance) " +
                 "VALUES ('${player.uniqueId}', 9, 0, 0) ON CONFLICT(player_uuid) " +
                 "DO UPDATE SET boughtTimes = ${if (getBoughtTimes(player) - amount < 0) "0" else "boughtTimes - $amount"}"
