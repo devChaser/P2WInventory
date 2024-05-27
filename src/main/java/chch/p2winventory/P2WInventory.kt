@@ -1,8 +1,6 @@
 package chch.p2winventory
 
-import chch.p2winventory.commands.addCMD
-import chch.p2winventory.commands.addCompleter
-import chch.p2winventory.commands.getPlayerInfoCMD
+import chch.p2winventory.commands.*
 import chch.p2winventory.db.DatabaseManager
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
@@ -25,9 +23,13 @@ class P2WInventory : JavaPlugin() {
 
         dataFolder.mkdirs()
 
-        getCommand("getplayer")?.setExecutor(getPlayerInfoCMD())
-        getCommand("add")?.setExecutor(addCMD())
-        getCommand("add")?.tabCompleter = addCompleter()
+        getCommand("getplayer")?.setExecutor(GetPlayerInfoCMD())
+
+        getCommand("add")?.setExecutor(AddDataCMD())
+        getCommand("add")?.tabCompleter = AddDataCompleter()
+
+        getCommand("remove")?.setExecutor(RemoveDataCMD())
+        getCommand("remove")?.tabCompleter = RemoveDataCompleter()
 
         server.pluginManager.registerEvents(EventListener(), this)
     }
