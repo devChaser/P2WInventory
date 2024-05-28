@@ -22,9 +22,19 @@ class RemoveDataCMD : CommandExecutor {
         val infoPlayer = Bukkit.getPlayer(args[0])!!
 
         when (args[1]) {
-            "activeSlots" -> databaseManager.revokeActiveSlots(infoPlayer, args[2].toInt())
-            "boughtTimes" -> databaseManager.revokeBoughtTimes(infoPlayer, args[2].toInt())
-            "balance" -> databaseManager.removeBalance(infoPlayer, args[2].toInt())
+            "activeSlots" -> {
+                databaseManager.revokeActiveSlots(infoPlayer, args[2].toInt())
+                sender.sendMessage("§cP§e2§aW§bI §7/ §rSuccessfully revoke §b${args[2]} active slots §rfrom §b${infoPlayer.name}")
+            }
+            "boughtTimes" -> {
+                databaseManager.revokeBoughtTimes(infoPlayer, args[2].toInt())
+                sender.sendMessage("§cP§e2§aW§bI §7/ §rSuccessfully revoke §b${args[2]} bought times §rfrom §b${infoPlayer.name}")
+            }
+            "balance" -> {
+                databaseManager.removeBalance(infoPlayer, args[2].toInt())
+                sender.sendMessage("§cP§e2§aW§bI §7/ §rSuccessfully remove §b${args[2]} balance §rfrom §b${infoPlayer.name}")
+            }
+            else -> return false
         }
 
         return true
