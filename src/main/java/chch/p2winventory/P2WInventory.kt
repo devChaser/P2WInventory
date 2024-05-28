@@ -26,10 +26,10 @@ class P2WInventory : JavaPlugin() {
         getCommand("getplayer")?.setExecutor(GetPlayerInfoCMD())
 
         getCommand("add")?.setExecutor(AddDataCMD())
-        getCommand("add")?.tabCompleter = AddDataCompleter()
+        getCommand("add")?.tabCompleter = AddRemoveDataCompleter()
 
         getCommand("remove")?.setExecutor(RemoveDataCMD())
-        getCommand("remove")?.tabCompleter = RemoveDataCompleter()
+        getCommand("remove")?.tabCompleter = AddRemoveDataCompleter()
 
         server.pluginManager.registerEvents(EventListener(), this)
     }
