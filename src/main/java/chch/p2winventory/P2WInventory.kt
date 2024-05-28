@@ -41,16 +41,6 @@ class P2WInventory : JavaPlugin() {
         getCommand("buyslot")?.setExecutor(BuySlotCMD())
 
         server.pluginManager.registerEvents(EventListener(), this)
-
-        // ЭТО ГОВНО НУЖНО ПОФИКСИТЬ ЖЕЛАТЕЛЬНО КАК-НИБУДЬ ЧЕРЕЗ ИВЕНТ
-//        server.scheduler.runTaskTimer(this, Runnable {
-//            for (world: World in Bukkit.getWorlds()) {
-//                for (e: Entity in world.entities) {
-//                    if (e.type != EntityType.ITEM) continue
-//                    if (itemIsUnavailable((e as Item).itemStack)) e.remove()
-//                }
-//            }
-//        }, 20L, 20L)
     }
 
     override fun onDisable() {
