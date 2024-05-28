@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack
 
 
 class EventListener : Listener {
-    val databaseManager = P2WInventory.instance!!.databaseManager
+    private val databaseManager = P2WInventory.instance!!.databaseManager
 
     // Block unavailable slots when player respawns
     @EventHandler

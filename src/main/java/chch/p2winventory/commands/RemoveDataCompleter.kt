@@ -7,7 +7,7 @@ import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 
 class RemoveDataCompleter : TabCompleter {
-    override fun onTabComplete(p0: CommandSender, p1: Command, p2: String, p3: Array<out String>): MutableList<String>? {
+    override fun onTabComplete(p0: CommandSender, p1: Command, p2: String, p3: Array<out String>): MutableList<String> {
         val list = arrayListOf<String>()
         when (p3.size) {
             1 -> {

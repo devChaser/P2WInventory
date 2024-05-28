@@ -60,7 +60,7 @@ class DatabaseManager {
         var activeSlots = 0
         val query = "SELECT activeSlots FROM players_info WHERE player_uuid = '${player.uniqueId}'"
         try {
-            val statement: PreparedStatement = connection?.prepareStatement(query) ?: return activeSlots
+            val statement: PreparedStatement = connection?.prepareStatement(query) ?: return 0
             val resultSet: ResultSet = statement.executeQuery()
             if (resultSet.next()) {
                 activeSlots = resultSet.getInt("activeSlots")
@@ -78,7 +78,7 @@ class DatabaseManager {
         var boughtTimes = 0
         val query = "SELECT boughtTimes FROM players_info WHERE player_uuid = '${player.uniqueId}'"
         try {
-            val statement = connection?.prepareStatement(query) ?: return boughtTimes
+            val statement = connection?.prepareStatement(query) ?: return 0
             val resultSet = statement.executeQuery()
 
             if (resultSet.next()) {
@@ -99,7 +99,7 @@ class DatabaseManager {
         var balance = 0
         val query = "SELECT balance FROM players_info WHERE player_uuid = '${player.uniqueId}'"
         try {
-            val statement = connection?.prepareStatement(query) ?: return balance
+            val statement = connection?.prepareStatement(query) ?: return 0
             val resultSet = statement.executeQuery()
 
             if (resultSet.next()) {

@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class P2WInventory : JavaPlugin() {
     lateinit var databaseManager: DatabaseManager
-    val unavailableTagKey = NamespacedKey(this, "isUnavailable")
+    private val unavailableTagKey = NamespacedKey(this, "isUnavailable")
 
     companion object {
         @JvmStatic

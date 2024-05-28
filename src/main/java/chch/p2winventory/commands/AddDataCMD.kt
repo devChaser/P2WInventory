@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 class AddDataCMD : CommandExecutor {
-    val databaseManager = P2WInventory.instance!!.databaseManager
+    private val databaseManager = P2WInventory.instance!!.databaseManager
     override fun onCommand(sender: CommandSender, p1: Command, p2: String, args: Array<out String>): Boolean {
         sender as Player
 
