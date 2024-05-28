@@ -90,7 +90,6 @@ class EventListener : Listener {
         val banKeys = arrayListOf("minecraft:recipes", "blazeandcave:technical")
         if ((banKeys.filter { it in event.advancement.key.toString() }).isNotEmpty()) return
 
-        event.player.sendMessage(event.advancement.key.toString())
         databaseManager.addBalance(event.player, 5)
         event.player.sendMessage("§cP§e2§aW§bI §7/ §rYou got §b5 points §rfor complete advancement")
     }
