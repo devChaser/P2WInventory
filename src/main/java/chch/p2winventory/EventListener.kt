@@ -4,10 +4,10 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.entity.EntityPickupItemEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.event.player.PlayerPickupItemEvent
 import org.bukkit.event.player.PlayerRespawnEvent
 import org.bukkit.inventory.ItemStack
 
@@ -64,7 +64,7 @@ class EventListener : Listener {
 
     // Unpickupable slotblockers
     @EventHandler
-    fun onPlayerPickupEvent(event: PlayerPickupItemEvent) {
+    fun onPlayerPickupEvent(event: EntityPickupItemEvent) {
         if (P2WInventory.instance!!.itemIsUnavailable(event.item.itemStack)) {
             event.item.remove()
             event.isCancelled = true

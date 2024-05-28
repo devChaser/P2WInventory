@@ -41,7 +41,7 @@ class P2WInventory : JavaPlugin() {
         databaseManager.disconnect()
     }
 
-    fun getUnavailableItem(): ItemStack {
+    private fun getUnavailableItem(): ItemStack {
         val slotBanItem = ItemStack(Material.GRAY_STAINED_GLASS_PANE)
         val slotBanItemMeta = slotBanItem.itemMeta
         slotBanItemMeta?.setDisplayName("§cUnavailable slot §7(§cP§e2§aW§bI§7)")
