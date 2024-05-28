@@ -25,6 +25,7 @@ class RemoveDataCMD : CommandExecutor {
             "activeSlots" -> {
                 databaseManager.revokeActiveSlots(infoPlayer, args[2].toInt())
                 sender.sendMessage("§cP§e2§aW§bI §7/ §rSuccessfully revoke §b${args[2]} active slots §rfrom §b${infoPlayer.name}")
+                P2WInventory.instance!!.giveSlotBlockers(sender)
             }
             "boughtTimes" -> {
                 databaseManager.revokeBoughtTimes(infoPlayer, args[2].toInt())

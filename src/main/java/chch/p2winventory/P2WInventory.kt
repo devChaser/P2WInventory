@@ -4,6 +4,7 @@ import chch.p2winventory.commands.*
 import chch.p2winventory.db.DatabaseManager
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.plugin.java.JavaPlugin
@@ -31,6 +32,8 @@ class P2WInventory : JavaPlugin() {
         getCommand("remove")?.setExecutor(RemoveDataCMD())
         getCommand("remove")?.tabCompleter = AddRemoveDataCompleter()
 
+        getCommand("buyslot")?.setExecutor(BuySlotCMD())
+
         server.pluginManager.registerEvents(EventListener(), this)
     }
 
@@ -53,5 +56,26 @@ class P2WInventory : JavaPlugin() {
         if (item.itemMeta == null) return false
         if (item.itemMeta!!.persistentDataContainer.get(unavailableTagKey, PersistentDataType.BOOLEAN) == null) return false
         return item.itemMeta!!.persistentDataContainer.get(unavailableTagKey, PersistentDataType.BOOLEAN)!!
+    }
+
+    fun getBuySlotCost(player: Player): Int {
+        return databaseManager.getActiveSlots(player) *
+                if (databaseManager.getBoughtTimes(player) == 0) 1
+                else databaseManager.getBoughtTimes(player)
+    }
+
+    fun giveSlotBlockers(player: Player) {
+        val playerActiveSlots = databaseManager.getActiveSlots(player)
+        for (item: ItemStack? in player.inventory.contents) {
+            if (item == null) continue
+            if (itemIsUnavailable(item)) {
+                player.inventory.remove(item)
+            }
+        }
+        for (i in 9..44-playerActiveSlots) {
+            // to fix
+            if (player.inventory.getItem(i) != null) player.inventory.drop(i)
+            player.inventory.setItem(i, getUnavailableItem())
+        }
     }
 }

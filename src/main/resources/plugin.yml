@@ -12,3 +12,5 @@ commands:
   remove:
     usage: /remove <player> <type of data> <amount>
     permission: '*'
+  buyslot:
+    usage: /buyslot

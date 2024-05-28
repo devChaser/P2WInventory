@@ -1,15 +1,12 @@
 package chch.p2winventory
 
-import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.event.player.PlayerAdvancementDoneEvent
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.event.player.PlayerPickupArrowEvent
 import org.bukkit.event.player.PlayerPickupItemEvent
 import org.bukkit.event.player.PlayerRespawnEvent
 import org.bukkit.inventory.ItemStack
@@ -22,10 +19,7 @@ class EventListener : Listener {
     @EventHandler
     fun onPlayerRespawn(event: PlayerRespawnEvent) {
         val player = event.player
-        val playerActiveSlots = databaseManager.getActiveSlots(player)
-        for (i in 9..44-playerActiveSlots) {
-            player.inventory.setItem(i, P2WInventory.instance!!.getUnavailableItem())
-        }
+        P2WInventory.instance!!.giveSlotBlockers(player)
     }
 
     // Don't drop slotblockers®️
