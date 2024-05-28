@@ -19,7 +19,7 @@ class EventListener : Listener {
     fun onPlayerRespawn(event: PlayerRespawnEvent) {
         val player = event.player
         val playerActiveSlots = databaseManager.getActiveSlots(player)
-        for (i in 35 downTo 0+playerActiveSlots) {
+        for (i in 9..44-playerActiveSlots) {
             player.inventory.setItem(i, P2WInventory.instance!!.getUnavailableItem())
         }
     }
