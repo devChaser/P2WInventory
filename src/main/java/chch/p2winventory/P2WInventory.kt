@@ -2,6 +2,7 @@ package chch.p2winventory
 
 import chch.p2winventory.commands.*
 import chch.p2winventory.db.DatabaseManager
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
@@ -49,10 +50,9 @@ class P2WInventory : JavaPlugin() {
         return slotBanItem
     }
 
-    fun itemIsUnavailable(item: ItemStack?): Boolean {
-        if (item != null) {
-            return item.itemMeta!!.persistentDataContainer.get(unavailableTagKey, PersistentDataType.BOOLEAN)!!
-        }
-        else return false
+    fun itemIsUnavailable(item: ItemStack): Boolean {
+        if (item.itemMeta == null) return false
+        if (item.itemMeta!!.persistentDataContainer.get(unavailableTagKey, PersistentDataType.BOOLEAN) == null) return false
+        return item.itemMeta!!.persistentDataContainer.get(unavailableTagKey, PersistentDataType.BOOLEAN)!!
     }
 }
