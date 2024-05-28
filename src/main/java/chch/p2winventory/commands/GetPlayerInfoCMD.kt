@@ -26,7 +26,7 @@ class GetPlayerInfoCMD : CommandExecutor {
         sender.sendMessage("§c》 §rActive slots§7: §b${databaseManager.getActiveSlots(infoPlayer)}")
         sender.sendMessage("§c》 §rBought times§7: §b${databaseManager.getBoughtTimes(infoPlayer)}")
         sender.sendMessage("§c》 §rBalance§7: §b${databaseManager.getBalance(infoPlayer)}")
-        sender.sendMessage("§c》 §rNew slot cost§7: §b${P2WInventory.instance!!.getBuySlotCost(sender)}")
+        sender.sendMessage("§c》 §rNew slot cost§7: §b${P2WInventory.instance!!.getBuySlotCost(infoPlayer)}")
 
         return true
     }
