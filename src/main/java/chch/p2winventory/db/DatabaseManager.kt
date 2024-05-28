@@ -61,7 +61,6 @@ class DatabaseManager {
         val query = "SELECT activeSlots FROM players_info WHERE player_uuid = '${player.uniqueId}'"
         try {
             val statement: PreparedStatement = connection?.prepareStatement(query) ?: return activeSlots
-//            statement.setInt(1, player.uniqueId)
             val resultSet: ResultSet = statement.executeQuery()
             if (resultSet.next()) {
                 activeSlots = resultSet.getInt("activeSlots")
@@ -123,7 +122,6 @@ class DatabaseManager {
                 "VALUES ('${player.uniqueId}', 9 + $amount, 0, 0) ON CONFLICT(player_uuid) DO UPDATE SET activeSlots = activeSlots + $amount"
         try {
             val statement: PreparedStatement = connection?.prepareStatement(query) ?: return true
-            //statement.setInt(1, player.uniqueId.hashCode())
             statement.executeUpdate()
             statement.close()
             return true
@@ -141,7 +139,6 @@ class DatabaseManager {
 
         try {
             val statement: PreparedStatement = connection?.prepareStatement(query) ?: return true
-            //statement.setInt(1, player.uniqueId.hashCode())
             statement.executeUpdate()
             statement.close()
             return  true
@@ -159,7 +156,6 @@ class DatabaseManager {
 
         try {
             val statement: PreparedStatement = connection?.prepareStatement(query) ?: return true
-            //statement.setInt(1, player.uniqueId.hashCode())
             statement.executeUpdate()
             statement.close()
             return true
@@ -175,7 +171,6 @@ class DatabaseManager {
                 "O UPDATE SET activeSlots = ${if (getActiveSlots(player) - amount < 9) "9" else "activeSlots - $amount"}"
         try {
             val statement: PreparedStatement = connection?.prepareStatement(query) ?: return
-            //statement.setInt(1, player.uniqueId.hashCode())
             statement.executeUpdate()
             statement.close()
         } catch (e: SQLException) {
@@ -189,7 +184,6 @@ class DatabaseManager {
                 "DO UPDATE SET boughtTimes = ${if (getBoughtTimes(player) - amount < 0) "0" else "boughtTimes - $amount"}"
         try {
             val statement: PreparedStatement = connection?.prepareStatement(query) ?: return
-            //statement.setInt(1, player.uniqueId.hashCode())
             statement.executeUpdate()
             statement.close()
         } catch (e: SQLException) {
@@ -204,7 +198,6 @@ class DatabaseManager {
 
         try {
             val statement: PreparedStatement = connection?.prepareStatement(query) ?: return
-            //statement.setInt(1, player.uniqueId.hashCode())
             statement.executeUpdate()
             statement.close()
         } catch (e: SQLException) {

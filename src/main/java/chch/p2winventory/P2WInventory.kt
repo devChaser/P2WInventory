@@ -2,7 +2,6 @@ package chch.p2winventory
 
 import chch.p2winventory.commands.*
 import chch.p2winventory.db.DatabaseManager
-import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
