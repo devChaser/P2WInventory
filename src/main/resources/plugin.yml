@@ -6,9 +6,13 @@ commands:
   getplayer:
     usage: /getplayer
     description: Get info about player
+    aliases: [i]
   add:
     usage: /add <player> <type of data> <amount>
     permission: '*'
   remove:
     usage: /remove <player> <type of data> <amount>
     permission: '*'
+  buyslot:
+    usage: /buyslot
+    aliases: [bs]
