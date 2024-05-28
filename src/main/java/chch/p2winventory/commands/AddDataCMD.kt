@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 class AddDataCMD : CommandExecutor {
-    val databaseManager = P2WInventory.instance!!.databaseManager
+    private val databaseManager = P2WInventory.instance!!.databaseManager
     override fun onCommand(sender: CommandSender, p1: Command, p2: String, args: Array<out String>): Boolean {
         sender as Player
 
@@ -22,9 +22,20 @@ class AddDataCMD : CommandExecutor {
         val infoPlayer = Bukkit.getPlayer(args[0])!!
 
         when (args[1]) {
-            "activeSlots" -> databaseManager.addActiveSlot(infoPlayer, args[2].toInt())
-            "boughtTimes" -> databaseManager.addBoughtTimes(infoPlayer, args[2].toInt())
-            "balance" -> databaseManager.addBalance(infoPlayer, args[2].toInt())
+            "activeSlots" -> {
+                databaseManager.addActiveSlot(infoPlayer, args[2].toInt())
+                Bukkit.broadcastMessage("§cP§e2§aW§bI §7/ §b${sender.name} §rSuccessfully add §b${args[2]} active slots §rto §b${infoPlayer.name}")
+                P2WInventory.instance!!.giveSlotBlockers(sender)
+            }
+            "boughtTimes" -> {
+                databaseManager.addBoughtTimes(infoPlayer, args[2].toInt())
+                Bukkit.broadcastMessage("§cP§e2§aW§bI §7/ §b${sender.name} §rSuccessfully add §b${args[2]} bought times §rto §b${infoPlayer.name}")
+            }
+            "balance" -> {
+                databaseManager.addBalance(infoPlayer, args[2].toInt())
+                Bukkit.broadcastMessage("§cP§e2§aW§bI §7/ §b${sender.name} §rSuccessfully add §b${args[2]} points §rto §b${infoPlayer.name}")
+            }
+            else -> return false
         }
 
         return true

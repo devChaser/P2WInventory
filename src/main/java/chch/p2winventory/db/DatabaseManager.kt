@@ -60,8 +60,7 @@ class DatabaseManager {
         var activeSlots = 0
         val query = "SELECT activeSlots FROM players_info WHERE player_uuid = '${player.uniqueId}'"
         try {
-            val statement: PreparedStatement = connection?.prepareStatement(query) ?: return activeSlots
-//            statement.setInt(1, player.uniqueId)
+            val statement: PreparedStatement = connection?.prepareStatement(query) ?: return 0
             val resultSet: ResultSet = statement.executeQuery()
             if (resultSet.next()) {
                 activeSlots = resultSet.getInt("activeSlots")
@@ -79,7 +78,7 @@ class DatabaseManager {
         var boughtTimes = 0
         val query = "SELECT boughtTimes FROM players_info WHERE player_uuid = '${player.uniqueId}'"
         try {
-            val statement = connection?.prepareStatement(query) ?: return boughtTimes
+            val statement = connection?.prepareStatement(query) ?: return 0
             val resultSet = statement.executeQuery()
 
             if (resultSet.next()) {
@@ -100,7 +99,7 @@ class DatabaseManager {
         var balance = 0
         val query = "SELECT balance FROM players_info WHERE player_uuid = '${player.uniqueId}'"
         try {
-            val statement = connection?.prepareStatement(query) ?: return balance
+            val statement = connection?.prepareStatement(query) ?: return 0
             val resultSet = statement.executeQuery()
 
             if (resultSet.next()) {
@@ -123,7 +122,6 @@ class DatabaseManager {
                 "VALUES ('${player.uniqueId}', 9 + $amount, 0, 0) ON CONFLICT(player_uuid) DO UPDATE SET activeSlots = activeSlots + $amount"
         try {
             val statement: PreparedStatement = connection?.prepareStatement(query) ?: return true
-            //statement.setInt(1, player.uniqueId.hashCode())
             statement.executeUpdate()
             statement.close()
             return true
@@ -141,7 +139,6 @@ class DatabaseManager {
 
         try {
             val statement: PreparedStatement = connection?.prepareStatement(query) ?: return true
-            //statement.setInt(1, player.uniqueId.hashCode())
             statement.executeUpdate()
             statement.close()
             return  true
@@ -159,7 +156,6 @@ class DatabaseManager {
 
         try {
             val statement: PreparedStatement = connection?.prepareStatement(query) ?: return true
-            //statement.setInt(1, player.uniqueId.hashCode())
             statement.executeUpdate()
             statement.close()
             return true
@@ -175,7 +171,6 @@ class DatabaseManager {
                 "O UPDATE SET activeSlots = ${if (getActiveSlots(player) - amount < 9) "9" else "activeSlots - $amount"}"
         try {
             val statement: PreparedStatement = connection?.prepareStatement(query) ?: return
-            //statement.setInt(1, player.uniqueId.hashCode())
             statement.executeUpdate()
             statement.close()
         } catch (e: SQLException) {
@@ -183,13 +178,12 @@ class DatabaseManager {
         }
     }
 
-    fun removeBoughtTimes(player: Player, amount: Int = 1) {
+    fun revokeBoughtTimes(player: Player, amount: Int = 1) {
         val query = "INSERT INTO players_info (player_uuid, activeSlots, boughtTimes, balance) " +
                 "VALUES ('${player.uniqueId}', 9, 0, 0) ON CONFLICT(player_uuid) " +
                 "DO UPDATE SET boughtTimes = ${if (getBoughtTimes(player) - amount < 0) "0" else "boughtTimes - $amount"}"
         try {
             val statement: PreparedStatement = connection?.prepareStatement(query) ?: return
-            //statement.setInt(1, player.uniqueId.hashCode())
             statement.executeUpdate()
             statement.close()
         } catch (e: SQLException) {
@@ -204,7 +198,6 @@ class DatabaseManager {
 
         try {
             val statement: PreparedStatement = connection?.prepareStatement(query) ?: return
-            //statement.setInt(1, player.uniqueId.hashCode())
             statement.executeUpdate()
             statement.close()
         } catch (e: SQLException) {
