@@ -17,9 +17,9 @@ class BuySlotCMD : CommandExecutor {
             return true
         }
 
+        databaseManager.removeBalance(sender, instance.getBuySlotCost(sender))
         databaseManager.addBoughtTimes(sender)
         databaseManager.addActiveSlot(sender)
-        databaseManager.removeBalance(sender, instance.getBuySlotCost(sender))
         P2WInventory.instance!!.giveSlotBlockers(sender)
 
         sender.sendMessage("§cP§e2§aW§bI §7/ §rSuccessfully bought new slot. §7(§b${databaseManager.getActiveSlots(sender)}§7)")

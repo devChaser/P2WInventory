@@ -15,3 +15,4 @@ commands:
     permission: '*'
   buyslot:
     usage: /buyslot
+    aliases: [bs]
