@@ -24,7 +24,7 @@ class RemoveDataCMD : CommandExecutor {
         when (args[1]) {
             "activeSlots" -> {
                 databaseManager.revokeActiveSlots(infoPlayer, args[2].toInt())
-                P2WInventory.instance!!.giveSlotBlockers(sender)
+                P2WInventory.instance!!.giveSlotBlockers(infoPlayer)
                 Bukkit.broadcastMessage("§cP§e2§aW§bI §7/ §b${sender.name} §rSuccessfully revoke §b${args[2]} active slots §rfrom §b${infoPlayer.name}")
             }
             "boughtTimes" -> {
