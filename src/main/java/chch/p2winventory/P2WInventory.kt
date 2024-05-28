@@ -73,8 +73,9 @@ class P2WInventory : JavaPlugin() {
             }
         }
         for (i in 9..44-playerActiveSlots) {
-            // to fix
-            if (player.inventory.getItem(i) != null) player.inventory.drop(i)
+            if (player.inventory.getItem(i) != null) {
+                player.world.dropItem(player.location, player.inventory.getItem(i)!!)
+            }
             player.inventory.setItem(i, getUnavailableItem())
         }
     }
