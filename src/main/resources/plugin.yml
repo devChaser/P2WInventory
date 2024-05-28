@@ -6,6 +6,7 @@ commands:
   getplayer:
     usage: /getplayer
     description: Get info about player
+    aliases: [i]
   add:
     usage: /add <player> <type of data> <amount>
     permission: '*'

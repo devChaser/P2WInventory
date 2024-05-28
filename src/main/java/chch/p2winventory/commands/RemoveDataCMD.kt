@@ -24,16 +24,16 @@ class RemoveDataCMD : CommandExecutor {
         when (args[1]) {
             "activeSlots" -> {
                 databaseManager.revokeActiveSlots(infoPlayer, args[2].toInt())
-                sender.sendMessage("§cP§e2§aW§bI §7/ §rSuccessfully revoke §b${args[2]} active slots §rfrom §b${infoPlayer.name}")
                 P2WInventory.instance!!.giveSlotBlockers(sender)
+                Bukkit.broadcastMessage("§cP§e2§aW§bI §7/ §b${sender.name} §rSuccessfully revoke §b${args[2]} active slots §rfrom §b${infoPlayer.name}")
             }
             "boughtTimes" -> {
                 databaseManager.revokeBoughtTimes(infoPlayer, args[2].toInt())
-                sender.sendMessage("§cP§e2§aW§bI §7/ §rSuccessfully revoke §b${args[2]} bought times §rfrom §b${infoPlayer.name}")
+                Bukkit.broadcastMessage("§cP§e2§aW§bI §7/ §b${sender.name} §rSuccessfully revoke §b${args[2]} bought times §rfrom §b${infoPlayer.name}")
             }
             "balance" -> {
                 databaseManager.removeBalance(infoPlayer, args[2].toInt())
-                sender.sendMessage("§cP§e2§aW§bI §7/ §rSuccessfully remove §b${args[2]} balance §rfrom §b${infoPlayer.name}")
+                Bukkit.broadcastMessage("§cP§e2§aW§bI §7/ §b${sender.name} §rSuccessfully remove §b${args[2]} points §rfrom §b${infoPlayer.name}")
             }
             else -> return false
         }

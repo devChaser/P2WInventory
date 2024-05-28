@@ -24,16 +24,16 @@ class AddDataCMD : CommandExecutor {
         when (args[1]) {
             "activeSlots" -> {
                 databaseManager.addActiveSlot(infoPlayer, args[2].toInt())
-                sender.sendMessage("§cP§e2§aW§bI §7/ §rSuccessfully add §b${args[2]} active slots §rto §b${infoPlayer.name}")
+                Bukkit.broadcastMessage("§cP§e2§aW§bI §7/ §b${sender.name} §rSuccessfully add §b${args[2]} active slots §rto §b${infoPlayer.name}")
                 P2WInventory.instance!!.giveSlotBlockers(sender)
             }
             "boughtTimes" -> {
                 databaseManager.addBoughtTimes(infoPlayer, args[2].toInt())
-                sender.sendMessage("§cP§e2§aW§bI §7/ §rSuccessfully add §b${args[2]} bought times §rto §b${infoPlayer.name}")
+                Bukkit.broadcastMessage("§cP§e2§aW§bI §7/ §b${sender.name} §rSuccessfully add §b${args[2]} bought times §rto §b${infoPlayer.name}")
             }
             "balance" -> {
                 databaseManager.addBalance(infoPlayer, args[2].toInt())
-                sender.sendMessage("§cP§e2§aW§bI §7/ §rSuccessfully add §b${args[2]} balance §rto §b${infoPlayer.name}")
+                Bukkit.broadcastMessage("§cP§e2§aW§bI §7/ §b${sender.name} §rSuccessfully add §b${args[2]} points §rto §b${infoPlayer.name}")
             }
             else -> return false
         }

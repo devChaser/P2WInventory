@@ -7,6 +7,7 @@ import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.entity.EntityPickupItemEvent
 import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.player.PlayerAdvancementDoneEvent
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerRespawnEvent
@@ -53,14 +54,15 @@ class EventListener : Listener {
 
         if (event.damage < player.health) return
 
-        databaseManager.revokeActiveSlots(player)
-
         for (item: ItemStack? in player.inventory.contents) {
             if (item == null) continue
             if (P2WInventory.instance!!.itemIsUnavailable(item)) {
                 player.inventory.remove(item)
             }
         }
+
+        databaseManager.revokeActiveSlots(player)
+        player.sendMessage("§cP§e2§aW§bI §7/ §cYou lose §b1 slot §cdue to your death")
     }
 
     // Unpickupable slotblockers
@@ -72,7 +74,8 @@ class EventListener : Listener {
         }
     }
 
-    // todo: different amount of points for different type of mobs
+    // Points for killing entities
+    // todo: different amount of points for different mobs
     @EventHandler
     fun onEntityDeath(event: EntityDeathEvent) {
         if (event.entity.killer !is Player) return
@@ -80,5 +83,15 @@ class EventListener : Listener {
         event.entity.killer!!.sendMessage("§cP§e2§aW§bI §7/ §rYou got §b1 point §rfor killing §b${event.entity.name}")
     }
 
+    // Points for advancements complete
+    // todo: different amount of points for different advancements
+    @EventHandler
+    fun onPlayerAdvancementDone(event: PlayerAdvancementDoneEvent) {
+        val banKeys = arrayListOf("minecraft:recipes", "blazeandcave:technical")
+        if ((banKeys.filter { it in event.advancement.key.toString() }).isNotEmpty()) return
 
+        event.player.sendMessage(event.advancement.key.toString())
+        databaseManager.addBalance(event.player, 5)
+        event.player.sendMessage("§cP§e2§aW§bI §7/ §rYou got §b5 points §rfor complete advancement")
+    }
 }
