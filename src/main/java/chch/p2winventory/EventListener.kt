@@ -6,6 +6,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.entity.EntityPickupItemEvent
+import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerAdvancementDoneEvent
 import org.bukkit.event.player.PlayerDropItemEvent
@@ -48,18 +49,8 @@ class EventListener : Listener {
     // Block a slot if player dies
     // TODO: CONFIG
     @EventHandler
-    fun onEntityDamage(event: EntityDamageEvent) {
-        if (event.entity !is Player) return
-        val player = event.entity as Player
-
-        if (event.damage < player.health) return
-
-        for (item: ItemStack? in player.inventory.contents) {
-            if (item == null) continue
-            if (P2WInventory.instance!!.itemIsUnavailable(item)) {
-                player.inventory.remove(item)
-            }
-        }
+    fun onPlayerDeath(event: PlayerDeathEvent) {
+        val player = event.entity
 
         databaseManager.revokeActiveSlots(player)
         player.sendMessage("§cP§e2§aW§bI §7/ §cYou lose §b1 slot §cdue to your death")

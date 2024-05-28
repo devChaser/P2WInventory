@@ -25,7 +25,7 @@ class AddDataCMD : CommandExecutor {
             "activeSlots" -> {
                 databaseManager.addActiveSlot(infoPlayer, args[2].toInt())
                 Bukkit.broadcastMessage("§cP§e2§aW§bI §7/ §b${sender.name} §rSuccessfully add §b${args[2]} active slots §rto §b${infoPlayer.name}")
-                P2WInventory.instance!!.giveSlotBlockers(sender)
+                P2WInventory.instance!!.giveSlotBlockers(infoPlayer)
             }
             "boughtTimes" -> {
                 databaseManager.addBoughtTimes(infoPlayer, args[2].toInt())
