@@ -5,13 +5,10 @@ import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
 
 class AddDataCMD : CommandExecutor {
     private val databaseManager = P2WInventory.instance!!.databaseManager
     override fun onCommand(sender: CommandSender, p1: Command, p2: String, args: Array<out String>): Boolean {
-        sender as Player
-
         if (args.size < 3) return false
 
         if (!Bukkit.getOfflinePlayers().contains(Bukkit.getPlayer(args[0]))
