@@ -1,5 +1,10 @@
 package chch.p2winventory
 
+import org.bukkit.Bukkit
+import org.bukkit.World
+import org.bukkit.entity.Entity
+import org.bukkit.entity.EntityType
+import org.bukkit.entity.Item
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -72,6 +77,13 @@ class EventListener : Listener {
         if (event.entity.killer !is Player) return
         databaseManager.addBalance(event.entity.killer!!, 1)
         event.entity.killer!!.sendMessage("§cP§e2§aW§bI §7/ §rYou got §b1 point §rfor killing §b${event.entity.name}")
+
+        for (world: World in Bukkit.getWorlds()) {
+            for (e: Entity in world.entities) {
+                if (e.type != EntityType.ITEM) continue
+                if (P2WInventory.instance!!.itemIsUnavailable((e as Item).itemStack)) e.remove()
+            }
+        }
     }
 
     // Points for advancements complete
