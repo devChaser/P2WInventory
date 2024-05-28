@@ -4,6 +4,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.entity.EntityPickupItemEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerDropItemEvent
@@ -70,4 +71,14 @@ class EventListener : Listener {
             event.isCancelled = true
         }
     }
+
+    // todo: different amount of points for different type of mobs
+    @EventHandler
+    fun onEntityDeath(event: EntityDeathEvent) {
+        if (event.entity.killer !is Player) return
+        databaseManager.addBalance(event.entity.killer!!, 1)
+        event.entity.killer!!.sendMessage("§cP§e2§aW§bI §7/ §rYou got §b1 point §rfor killing §b${event.entity.name}")
+    }
+
+
 }
